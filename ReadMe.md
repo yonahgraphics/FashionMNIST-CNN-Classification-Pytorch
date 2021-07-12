@@ -329,6 +329,8 @@ plt.title("Labels:    " + str(labels.tolist()), fontsize = 15)
     
 
 
+## **2. BUILD THE MODEL**<br><br>
+
 ## BUILDING THE NUERAL NETWORK
 
 
@@ -444,6 +446,13 @@ However, what makes a layer distinct from an operation is that layers have weigh
 
 
 
+
+## **3. TRAIN THE MODEL**<br><br>
+
+
+
+
+
 # TRAINING A CNN, CALCULATE THE LOSS, GRADIENT AND UPDATE THE WEIGHTS
 
 ## Training: What We Do After The Forward Pass <br>
@@ -509,7 +518,11 @@ for batch in  train_loader: # Get Batches
 print("Epoch:", 0, "Total correct:", total_correct, "Total loss:", total_loss)
 ```
 
-    Epoch: 0 Total correct: 6124 Total loss: 318.85933750867844
+    C:\ProgramData\Anaconda3\lib\site-packages\torch\nn\functional.py:718: UserWarning: Named tensors and all their associated APIs are an experimental feature and subject to change. Please do not use them for anything important until they are released as stable. (Triggered internally at  ..\c10/core/TensorImpl.h:1156.)
+      return torch.max_pool2d(input, kernel_size, stride, padding, dilation, ceil_mode)
+    
+
+    Epoch: 0 Total correct: 6180 Total loss: 346.4656988978386
     
 
 
@@ -518,7 +531,7 @@ Accuracy = (total_correct/len(train_set))*100
 print("Accuracy % = ",Accuracy)
 ```
 
-    Accuracy % =  10.206666666666667
+    Accuracy % =  10.299999999999999
     
 
 
@@ -568,9 +581,9 @@ for epoch in range(3):
   print("Epoch:",    epoch, "Total correct:",    total_correct, "Total loss:",    total_loss,    "Accuracy", Accuracy)
 ```
 
-    Epoch: 0 Total correct: 6072 Total loss: 361.0771214365959 Accuracy 10.12
-    Epoch: 1 Total correct: 12072 Total loss: 607.3100926876068 Accuracy 20.119999999999997
-    Epoch: 2 Total correct: 18027 Total loss: 828.4034409075975 Accuracy 30.044999999999998
+    Epoch: 0 Total correct: 6094 Total loss: 335.35804176330566 Accuracy 10.156666666666666
+    Epoch: 1 Total correct: 12127 Total loss: 564.7965475171804 Accuracy 20.211666666666666
+    Epoch: 2 Total correct: 18084 Total loss: 773.1056192070246 Accuracy 30.14
     
 
 
@@ -579,8 +592,11 @@ Accuracy = (total_correct/len(train_set))*100
 print("Accuracy % = ",Accuracy)
 ```
 
-    Accuracy % =  30.044999999999998
+    Accuracy % =  30.14
     
+
+# 4. ANALYZE THE MODEL'S RESULTS<br><br>
+
 
 # Create A Confusion Matrix With PyTorch
 A confusion matrix will show us where the model is getting confused. To be more specific, the confusion matrix will show us which categories the model is predicting correctly and which categories the model is predicting incorrectly. For the incorrect predictions, we will be able to see which category the model predicted, and this will show us which categories are confusing the model.
@@ -656,8 +672,8 @@ print('total correct:', preds_correct)
 print('accuracy:', preds_correct / len(train_set))
 ```
 
-    total correct: 51506
-    accuracy: 0.8584333333333334
+    total correct: 52448
+    accuracy: 0.8741333333333333
     
 
 ## Building a confusion maxtrix
@@ -674,7 +690,7 @@ print(train_preds.argmax(dim=1))
 ```
 
     tensor([9, 0, 0,  ..., 3, 0, 5])
-    tensor([9, 0, 3,  ..., 3, 0, 5])
+    tensor([9, 0, 0,  ..., 3, 0, 5])
     
 
 
@@ -692,7 +708,7 @@ stacked[0].tolist()
 
     tensor([[9, 9],
             [0, 0],
-            [0, 3],
+            [0, 0],
             ...,
             [3, 3],
             [0, 0],
@@ -749,16 +765,16 @@ cmt
 
 
 
-    tensor([[4944,   26,   65,  323,   17,   19,  561,    0,   45,    0],
-            [  10, 5864,    0,   92,    8,    3,   11,    0,   12,    0],
-            [  72,    3, 3860,   68, 1021,   13,  898,    0,   65,    0],
-            [ 133,  169,    4, 5392,  212,    2,   73,    0,   15,    0],
-            [  11,   21,  190,  244, 4761,    3,  734,    0,   35,    1],
-            [   1,    0,    0,    0,    0, 5753,    0,  198,    5,   43],
-            [ 883,   15,  332,  319,  477,    4, 3898,    0,   72,    0],
-            [   0,    0,    0,    0,    0,   53,    0, 5917,    6,   24],
-            [  12,    4,    7,   27,   27,   30,   82,   14, 5794,    3],
-            [   0,    0,    1,    0,    0,   37,    0,  635,    4, 5323]])
+    tensor([[5460,   20,   45,  188,    9,    8,  185,    0,   85,    0],
+            [  14, 5785,    4,  170,    0,    5,    6,    0,   16,    0],
+            [  83,    7, 4433,   82,  628,    2,  713,    0,   52,    0],
+            [ 151,   46,    7, 5612,   75,    2,   88,    0,   16,    3],
+            [  13,   19,  255,  436, 4430,    2,  800,    0,   45,    0],
+            [   0,    0,    1,    0,    0, 5743,    0,  172,   17,   67],
+            [1581,   23,  302,  205,  271,    0, 3495,    1,  122,    0],
+            [   0,    0,    0,    0,    0,   42,    0, 5812,    6,  140],
+            [  10,    3,    6,   22,    9,   12,   23,   11, 5902,    2],
+            [   0,    0,    0,    0,    0,   22,    0,  195,    7, 5776]])
 
 
 
@@ -778,16 +794,16 @@ cm ## As you can see, they look exactly the same
 
 
 
-    array([[4944,   26,   65,  323,   17,   19,  561,    0,   45,    0],
-           [  10, 5864,    0,   92,    8,    3,   11,    0,   12,    0],
-           [  72,    3, 3860,   68, 1021,   13,  898,    0,   65,    0],
-           [ 133,  169,    4, 5392,  212,    2,   73,    0,   15,    0],
-           [  11,   21,  190,  244, 4761,    3,  734,    0,   35,    1],
-           [   1,    0,    0,    0,    0, 5753,    0,  198,    5,   43],
-           [ 883,   15,  332,  319,  477,    4, 3898,    0,   72,    0],
-           [   0,    0,    0,    0,    0,   53,    0, 5917,    6,   24],
-           [  12,    4,    7,   27,   27,   30,   82,   14, 5794,    3],
-           [   0,    0,    1,    0,    0,   37,    0,  635,    4, 5323]],
+    array([[5460,   20,   45,  188,    9,    8,  185,    0,   85,    0],
+           [  14, 5785,    4,  170,    0,    5,    6,    0,   16,    0],
+           [  83,    7, 4433,   82,  628,    2,  713,    0,   52,    0],
+           [ 151,   46,    7, 5612,   75,    2,   88,    0,   16,    3],
+           [  13,   19,  255,  436, 4430,    2,  800,    0,   45,    0],
+           [   0,    0,    1,    0,    0, 5743,    0,  172,   17,   67],
+           [1581,   23,  302,  205,  271,    0, 3495,    1,  122,    0],
+           [   0,    0,    0,    0,    0,   42,    0, 5812,    6,  140],
+           [  10,    3,    6,   22,    9,   12,   23,   11, 5902,    2],
+           [   0,    0,    0,    0,    0,   22,    0,  195,    7, 5776]],
           dtype=int64)
 
 
@@ -1092,10 +1108,10 @@ m.save('results')
       <th>0</th>
       <td>1</td>
       <td>1</td>
-      <td>0.968742</td>
-      <td>0.633783</td>
-      <td>9.191985</td>
-      <td>9.274953</td>
+      <td>0.991178</td>
+      <td>0.615567</td>
+      <td>13.573308</td>
+      <td>13.661307</td>
       <td>0.010</td>
       <td>1000</td>
       <td>True</td>
@@ -1106,10 +1122,10 @@ m.save('results')
       <th>1</th>
       <td>1</td>
       <td>2</td>
-      <td>0.537420</td>
-      <td>0.790233</td>
-      <td>10.201283</td>
-      <td>19.487237</td>
+      <td>0.529693</td>
+      <td>0.797267</td>
+      <td>14.206323</td>
+      <td>27.900631</td>
       <td>0.010</td>
       <td>1000</td>
       <td>True</td>
@@ -1120,10 +1136,10 @@ m.save('results')
       <th>2</th>
       <td>1</td>
       <td>3</td>
-      <td>0.442987</td>
-      <td>0.834950</td>
-      <td>10.573198</td>
-      <td>30.068434</td>
+      <td>0.435356</td>
+      <td>0.841033</td>
+      <td>13.001342</td>
+      <td>40.915957</td>
       <td>0.010</td>
       <td>1000</td>
       <td>True</td>
@@ -1134,10 +1150,10 @@ m.save('results')
       <th>3</th>
       <td>1</td>
       <td>4</td>
-      <td>0.392273</td>
-      <td>0.853633</td>
-      <td>11.204319</td>
-      <td>41.283752</td>
+      <td>0.385905</td>
+      <td>0.858217</td>
+      <td>14.807413</td>
+      <td>55.737370</td>
       <td>0.010</td>
       <td>1000</td>
       <td>True</td>
@@ -1148,10 +1164,10 @@ m.save('results')
       <th>4</th>
       <td>1</td>
       <td>5</td>
-      <td>0.350159</td>
-      <td>0.870100</td>
-      <td>11.111488</td>
-      <td>52.405239</td>
+      <td>0.363691</td>
+      <td>0.864817</td>
+      <td>13.884387</td>
+      <td>69.637759</td>
       <td>0.010</td>
       <td>1000</td>
       <td>True</td>
@@ -1176,10 +1192,10 @@ m.save('results')
       <th>475</th>
       <td>96</td>
       <td>1</td>
-      <td>2.131144</td>
-      <td>0.280117</td>
-      <td>4.076670</td>
-      <td>6.044702</td>
+      <td>1.963664</td>
+      <td>0.348100</td>
+      <td>4.629019</td>
+      <td>6.935844</td>
       <td>0.001</td>
       <td>2000</td>
       <td>False</td>
@@ -1190,10 +1206,10 @@ m.save('results')
       <th>476</th>
       <td>96</td>
       <td>2</td>
-      <td>1.097904</td>
-      <td>0.599183</td>
-      <td>4.016669</td>
-      <td>10.084414</td>
+      <td>0.943537</td>
+      <td>0.652417</td>
+      <td>4.581577</td>
+      <td>11.540421</td>
       <td>0.001</td>
       <td>2000</td>
       <td>False</td>
@@ -1204,10 +1220,10 @@ m.save('results')
       <th>477</th>
       <td>96</td>
       <td>3</td>
-      <td>0.788654</td>
-      <td>0.697683</td>
-      <td>4.022605</td>
-      <td>14.130056</td>
+      <td>0.753340</td>
+      <td>0.712333</td>
+      <td>4.691170</td>
+      <td>16.253596</td>
       <td>0.001</td>
       <td>2000</td>
       <td>False</td>
@@ -1218,10 +1234,10 @@ m.save('results')
       <th>478</th>
       <td>96</td>
       <td>4</td>
-      <td>0.689744</td>
-      <td>0.741317</td>
-      <td>4.116075</td>
-      <td>18.270176</td>
+      <td>0.690154</td>
+      <td>0.734650</td>
+      <td>4.669000</td>
+      <td>20.943594</td>
       <td>0.001</td>
       <td>2000</td>
       <td>False</td>
@@ -1232,10 +1248,10 @@ m.save('results')
       <th>479</th>
       <td>96</td>
       <td>5</td>
-      <td>0.617615</td>
-      <td>0.766517</td>
-      <td>4.092544</td>
-      <td>22.385719</td>
+      <td>0.649891</td>
+      <td>0.749467</td>
+      <td>4.705993</td>
+      <td>25.671594</td>
       <td>0.001</td>
       <td>2000</td>
       <td>False</td>
@@ -1291,71 +1307,71 @@ pd.DataFrame.from_dict(m.run_data, orient = 'columns').sort_values('epoch durati
   </thead>
   <tbody>
     <tr>
-      <th>306</th>
-      <td>62</td>
-      <td>2</td>
-      <td>0.800691</td>
-      <td>0.692717</td>
-      <td>3.366703</td>
-      <td>7.923790</td>
-      <td>0.01</td>
-      <td>2000</td>
-      <td>False</td>
-      <td>2</td>
-      <td>cuda</td>
-    </tr>
-    <tr>
-      <th>305</th>
-      <td>62</td>
+      <th>155</th>
+      <td>32</td>
       <td>1</td>
-      <td>1.501298</td>
-      <td>0.415717</td>
-      <td>3.396098</td>
-      <td>4.540127</td>
-      <td>0.01</td>
+      <td>1.356264</td>
+      <td>0.474100</td>
+      <td>4.400014</td>
+      <td>6.695569</td>
+      <td>0.010</td>
       <td>2000</td>
       <td>False</td>
-      <td>2</td>
-      <td>cuda</td>
-    </tr>
-    <tr>
-      <th>308</th>
-      <td>62</td>
       <td>4</td>
-      <td>0.565019</td>
-      <td>0.783350</td>
-      <td>3.420038</td>
-      <td>14.927567</td>
-      <td>0.01</td>
-      <td>2000</td>
-      <td>False</td>
-      <td>2</td>
       <td>cuda</td>
     </tr>
     <tr>
-      <th>307</th>
-      <td>62</td>
+      <th>357</th>
+      <td>72</td>
       <td>3</td>
-      <td>0.638067</td>
-      <td>0.752517</td>
-      <td>3.552777</td>
-      <td>11.492531</td>
-      <td>0.01</td>
-      <td>2000</td>
-      <td>False</td>
-      <td>2</td>
+      <td>0.686935</td>
+      <td>0.737933</td>
+      <td>4.400044</td>
+      <td>17.029737</td>
+      <td>0.001</td>
+      <td>1000</td>
+      <td>True</td>
+      <td>4</td>
       <td>cuda</td>
     </tr>
     <tr>
-      <th>318</th>
-      <td>64</td>
-      <td>4</td>
-      <td>0.520027</td>
-      <td>0.806217</td>
-      <td>3.568410</td>
-      <td>16.626214</td>
-      <td>0.01</td>
+      <th>157</th>
+      <td>32</td>
+      <td>3</td>
+      <td>0.565797</td>
+      <td>0.783500</td>
+      <td>4.443197</td>
+      <td>15.692271</td>
+      <td>0.010</td>
       <td>2000</td>
+      <td>False</td>
+      <td>4</td>
+      <td>cuda</td>
+    </tr>
+    <tr>
+      <th>395</th>
+      <td>80</td>
+      <td>1</td>
+      <td>1.518671</td>
+      <td>0.470333</td>
+      <td>4.469982</td>
+      <td>6.470994</td>
+      <td>0.001</td>
+      <td>1000</td>
+      <td>False</td>
+      <td>4</td>
+      <td>cuda</td>
+    </tr>
+    <tr>
+      <th>75</th>
+      <td>16</td>
+      <td>1</td>
+      <td>1.028691</td>
+      <td>0.604700</td>
+      <td>4.480002</td>
+      <td>6.386959</td>
+      <td>0.010</td>
+      <td>1000</td>
       <td>False</td>
       <td>4</td>
       <td>cuda</td>
@@ -1375,70 +1391,70 @@ pd.DataFrame.from_dict(m.run_data, orient = 'columns').sort_values('epoch durati
       <td>...</td>
     </tr>
     <tr>
-      <th>284</th>
-      <td>57</td>
-      <td>5</td>
-      <td>0.484571</td>
-      <td>0.819367</td>
-      <td>13.513353</td>
-      <td>67.537214</td>
-      <td>0.01</td>
-      <td>2000</td>
-      <td>False</td>
-      <td>0</td>
-      <td>cpu</td>
-    </tr>
-    <tr>
-      <th>163</th>
-      <td>33</td>
-      <td>4</td>
-      <td>0.410880</td>
-      <td>0.849350</td>
-      <td>13.540706</td>
-      <td>53.558531</td>
-      <td>0.01</td>
-      <td>1000</td>
-      <td>True</td>
-      <td>0</td>
-      <td>cpu</td>
-    </tr>
-    <tr>
-      <th>40</th>
-      <td>9</td>
-      <td>1</td>
-      <td>0.988801</td>
-      <td>0.625567</td>
-      <td>13.616276</td>
-      <td>13.726280</td>
-      <td>0.01</td>
-      <td>1000</td>
-      <td>False</td>
-      <td>0</td>
-      <td>cpu</td>
-    </tr>
-    <tr>
-      <th>82</th>
-      <td>17</td>
+      <th>122</th>
+      <td>25</td>
       <td>3</td>
-      <td>0.557893</td>
-      <td>0.786167</td>
-      <td>13.712744</td>
-      <td>39.940025</td>
-      <td>0.01</td>
+      <td>0.572608</td>
+      <td>0.782833</td>
+      <td>16.679206</td>
+      <td>44.051438</td>
+      <td>0.010</td>
       <td>2000</td>
-      <td>True</td>
+      <td>False</td>
       <td>0</td>
       <td>cpu</td>
     </tr>
     <tr>
-      <th>240</th>
-      <td>49</td>
+      <th>440</th>
+      <td>89</td>
       <td>1</td>
-      <td>1.327110</td>
-      <td>0.493167</td>
-      <td>13.937605</td>
-      <td>14.159637</td>
-      <td>0.01</td>
+      <td>1.984919</td>
+      <td>0.358067</td>
+      <td>16.753931</td>
+      <td>17.077933</td>
+      <td>0.001</td>
+      <td>2000</td>
+      <td>False</td>
+      <td>0</td>
+      <td>cpu</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>3</td>
+      <td>5</td>
+      <td>0.333595</td>
+      <td>0.876067</td>
+      <td>16.765900</td>
+      <td>68.176238</td>
+      <td>0.010</td>
+      <td>1000</td>
+      <td>True</td>
+      <td>1</td>
+      <td>cpu</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>7</td>
+      <td>2</td>
+      <td>0.591398</td>
+      <td>0.775633</td>
+      <td>18.064981</td>
+      <td>32.676282</td>
+      <td>0.010</td>
+      <td>1000</td>
+      <td>True</td>
+      <td>4</td>
+      <td>cpu</td>
+    </tr>
+    <tr>
+      <th>84</th>
+      <td>17</td>
+      <td>5</td>
+      <td>0.430667</td>
+      <td>0.842350</td>
+      <td>18.585621</td>
+      <td>76.043813</td>
+      <td>0.010</td>
       <td>2000</td>
       <td>True</td>
       <td>0</td>
@@ -1494,73 +1510,73 @@ pd.DataFrame.from_dict(m.run_data, orient = 'columns').sort_values('accuracy')
   </thead>
   <tbody>
     <tr>
-      <th>455</th>
-      <td>92</td>
+      <th>470</th>
+      <td>95</td>
       <td>1</td>
-      <td>2.156468</td>
-      <td>0.239350</td>
-      <td>5.617794</td>
-      <td>6.793147</td>
+      <td>2.087592</td>
+      <td>0.276500</td>
+      <td>9.866046</td>
+      <td>12.205042</td>
       <td>0.001</td>
       <td>2000</td>
       <td>False</td>
-      <td>1</td>
-      <td>cuda</td>
-    </tr>
-    <tr>
-      <th>450</th>
-      <td>91</td>
-      <td>1</td>
-      <td>2.065797</td>
-      <td>0.244317</td>
-      <td>9.751034</td>
-      <td>10.910103</td>
-      <td>0.001</td>
-      <td>2000</td>
-      <td>False</td>
-      <td>1</td>
+      <td>4</td>
       <td>cpu</td>
     </tr>
     <tr>
-      <th>430</th>
-      <td>87</td>
+      <th>420</th>
+      <td>85</td>
       <td>1</td>
-      <td>2.122646</td>
-      <td>0.276667</td>
-      <td>10.189364</td>
-      <td>12.269402</td>
+      <td>1.994883</td>
+      <td>0.282517</td>
+      <td>9.389997</td>
+      <td>11.050996</td>
       <td>0.001</td>
       <td>2000</td>
       <td>True</td>
-      <td>4</td>
+      <td>2</td>
       <td>cpu</td>
     </tr>
     <tr>
-      <th>475</th>
-      <td>96</td>
+      <th>415</th>
+      <td>84</td>
       <td>1</td>
-      <td>2.131144</td>
-      <td>0.280117</td>
-      <td>4.076670</td>
-      <td>6.044702</td>
+      <td>2.060152</td>
+      <td>0.295967</td>
+      <td>6.433115</td>
+      <td>7.871342</td>
       <td>0.001</td>
       <td>2000</td>
-      <td>False</td>
-      <td>4</td>
+      <td>True</td>
+      <td>1</td>
       <td>cuda</td>
     </tr>
     <tr>
-      <th>445</th>
-      <td>90</td>
+      <th>465</th>
+      <td>94</td>
       <td>1</td>
-      <td>1.998803</td>
-      <td>0.305417</td>
-      <td>5.727273</td>
-      <td>5.907264</td>
+      <td>2.091826</td>
+      <td>0.302217</td>
+      <td>4.801367</td>
+      <td>6.770372</td>
       <td>0.001</td>
       <td>2000</td>
       <td>False</td>
-      <td>0</td>
+      <td>2</td>
+      <td>cuda</td>
+    </tr>
+    <tr>
+      <th>425</th>
+      <td>86</td>
+      <td>1</td>
+      <td>2.075999</td>
+      <td>0.303000</td>
+      <td>4.713068</td>
+      <td>6.479569</td>
+      <td>0.001</td>
+      <td>2000</td>
+      <td>True</td>
+      <td>2</td>
       <td>cuda</td>
     </tr>
     <tr>
@@ -1578,27 +1594,13 @@ pd.DataFrame.from_dict(m.run_data, orient = 'columns').sort_values('accuracy')
       <td>...</td>
     </tr>
     <tr>
-      <th>64</th>
-      <td>13</td>
-      <td>5</td>
-      <td>0.346743</td>
-      <td>0.873517</td>
-      <td>10.065406</td>
-      <td>51.759675</td>
-      <td>0.010</td>
-      <td>1000</td>
-      <td>False</td>
-      <td>2</td>
-      <td>cpu</td>
-    </tr>
-    <tr>
-      <th>29</th>
+      <th>28</th>
       <td>6</td>
-      <td>5</td>
-      <td>0.335691</td>
-      <td>0.873533</td>
-      <td>4.062713</td>
-      <td>22.109782</td>
+      <td>4</td>
+      <td>0.349250</td>
+      <td>0.872367</td>
+      <td>4.858604</td>
+      <td>23.904875</td>
       <td>0.010</td>
       <td>1000</td>
       <td>True</td>
@@ -1606,46 +1608,60 @@ pd.DataFrame.from_dict(m.run_data, orient = 'columns').sort_values('accuracy')
       <td>cuda</td>
     </tr>
     <tr>
-      <th>214</th>
-      <td>43</td>
+      <th>199</th>
+      <td>40</td>
       <td>5</td>
-      <td>0.336451</td>
-      <td>0.875417</td>
-      <td>9.905394</td>
-      <td>51.336154</td>
+      <td>0.345132</td>
+      <td>0.872417</td>
+      <td>5.135036</td>
+      <td>25.573701</td>
+      <td>0.010</td>
+      <td>1000</td>
+      <td>True</td>
+      <td>4</td>
+      <td>cuda</td>
+    </tr>
+    <tr>
+      <th>224</th>
+      <td>45</td>
+      <td>5</td>
+      <td>0.338386</td>
+      <td>0.874817</td>
+      <td>12.686172</td>
+      <td>54.645066</td>
       <td>0.010</td>
       <td>1000</td>
       <td>False</td>
+      <td>2</td>
+      <td>cpu</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>3</td>
+      <td>5</td>
+      <td>0.333595</td>
+      <td>0.876067</td>
+      <td>16.765900</td>
+      <td>68.176238</td>
+      <td>0.010</td>
+      <td>1000</td>
+      <td>True</td>
       <td>1</td>
       <td>cpu</td>
     </tr>
     <tr>
-      <th>234</th>
-      <td>47</td>
+      <th>29</th>
+      <td>6</td>
       <td>5</td>
-      <td>0.330765</td>
-      <td>0.876467</td>
-      <td>10.393890</td>
-      <td>52.667946</td>
-      <td>0.010</td>
-      <td>1000</td>
-      <td>False</td>
-      <td>4</td>
-      <td>cpu</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>5</td>
-      <td>5</td>
-      <td>0.327698</td>
-      <td>0.879467</td>
-      <td>10.274865</td>
-      <td>48.206156</td>
+      <td>0.325293</td>
+      <td>0.880483</td>
+      <td>5.255361</td>
+      <td>29.183285</td>
       <td>0.010</td>
       <td>1000</td>
       <td>True</td>
       <td>2</td>
-      <td>cpu</td>
+      <td>cuda</td>
     </tr>
   </tbody>
 </table>
